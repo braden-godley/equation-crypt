@@ -9,7 +9,7 @@ fn main() -> std::io::Result<()> {
     let mut content = String::new();
     reader.read_to_string(&mut content)?;
 
-    let my_equation = |x| x * x;
+    let my_equation = |x| (x as f32).cos() * 10.0;
 
     let encrypted = encrypt(&content, my_equation)?;
 
@@ -22,18 +22,16 @@ fn main() -> std::io::Result<()> {
     Ok(())
 }
 
-type Equation = fn(i32) -> i32;
+type Equation = fn(i32) -> f32;
 
 fn algorithm(input: &str, equation: Equation, mult: i32) -> std::io::Result<String> {
     let mut out = String::new();
 
-    let chars = input.chars();
-
     let mut j = 0;
-    for c in chars.enumerate() {
+    for c in input.chars().enumerate() {
         let byte = c.1 as u8;
-        let offset = equation(j) * mult;
-        let total = byte as i32 + offset;
+        let offset: i32 = equation(j).floor() as i32 * mult;
+        let total = byte as i32 + offset as i32;
         let result = (total % 256) as u8;
         println!("{} + {} -> {} -> {}", byte, offset, total, result);
         out.push(result as char);
