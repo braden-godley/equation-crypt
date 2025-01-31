@@ -5,16 +5,17 @@ fn main() -> io::Result<()> {
     let file = File::open("input.txt")?;
     let mut reader = BufReader::new(file);
 
-    let mut content = String::new();
-    reader.read_to_string(&mut content)?;
+    let mut input = String::new();
+    reader.read_to_string(&mut input)?;
+    println!("Input text:\n{}", input);
 
-    let my_equation = |x| (x as f32).cos() * 10.0;
+    let my_equation = |x| x as f32 + (x as f32).cos();
 
-    let encrypted = encrypt(&content, my_equation)?;
-    println!("Encrypted:\n{}\n", encrypted);
+    let encrypted = encrypt(&input, my_equation)?;
+    println!("Encrypted:\n{}", encrypted);
 
     let decrypted = decrypt(&encrypted, my_equation)?;
-    println!("Decrypted:\n{}\n", decrypted);
+    println!("Decrypted:\n{}", decrypted);
 
     Ok(())
 }
