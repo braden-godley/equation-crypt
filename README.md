@@ -2,7 +2,7 @@
 
 This is the implementation of a random idea for encrypting strings.
 
-## The algorithm
+## The Algorithm
 
 Basically, you can create any custom mathematical function that takes an integer and produces a float.
 
@@ -12,11 +12,11 @@ When encrypting, it determines the cipher offset for each character by plugging 
 
 For instance, suppose the function is: `f(x) = x + cos(x)` and the input string is "Apple"
 
-The input string's 0-th character is A, which is 65 in its 8-bit ASCII representation.
+The input string's 0-th character is A, which is 65 in its 8-bit ASCII representation. We plug the index, 0, into the equation:
 
 `f(0) = 0.0 + 1.0 = 1.0`
 
-We floor the output of the function. `floor(f(0)) = 1`. This is our offset.
+We floor the output of the function to get a whole number offset: `floor(f(0)) = 1`
 
 Then, add the offset to the 8-bit value of the 0-th character: `65 + 1 = 66`. 66 in ASCII is 'B', so that's the first character of the ciphertext.
 
